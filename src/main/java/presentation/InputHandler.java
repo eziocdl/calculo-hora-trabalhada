@@ -1,6 +1,5 @@
 package presentation;
 
-import javax.swing.text.DateFormatter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -17,7 +16,7 @@ public class InputHandler {
         this.formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     }
 
-    private LocalDateTime obterHorarioEntrada() {
+    public LocalDateTime obterHorarioEntrada() {
 
         // chamando o método auxiliar
         return obterHorario("Digite o horário de entrada (HH:mm:ss): ");
@@ -44,7 +43,16 @@ public class InputHandler {
             System.out.println(mensagem);
             String entrada = scanner.nextLine();
 
+            // validação da entrada
+
+            if (entrada == null || entrada.trim().isEmpty()) {
+                System.out.println("Entrada não pode serr vazia");
+                continue;
+            }
+
             try {
+
+                // validando formato
                 return LocalDateTime.parse(entrada, formatter);
 
             } catch (DateTimeParseException e) {
