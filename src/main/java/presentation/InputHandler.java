@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class InputHandler {
+
     private Scanner scanner;
     private DateTimeFormatter formatter;
     private Pattern pattern = Pattern.compile("^\\d{2}:\\d{2}:\\d{2}$");
@@ -16,37 +17,37 @@ public class InputHandler {
         this.formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     }
 
-    public LocalTime obterHorario(String mensagem) { // Alterado para LocalTime
-        LocalTime horario = null; // Alterado para LocalTime
-        boolean entradaValida = false;
+    public LocalTime getTime(String message) {
+        LocalTime time = null;
+        boolean validInput = false;
 
-        while (!entradaValida) {
-            System.out.print(mensagem + " (HH:mm:ss) - Ex: 12:30:45: ");
-            String entrada = scanner.nextLine().replaceAll("\\s+", "");
+        while (!validInput) {
+            System.out.print(message + " (HH:mm:ss) - Ex: 12:30:45: ");
+            String input = scanner.nextLine().replaceAll("\\s+", "");
 
-
-            if (pattern.matcher(entrada).matches()) {
+            if (pattern.matcher(input).matches()) {
                 try {
-                    horario = LocalTime.parse(entrada, formatter); // Alterado para LocalTime.parse
-                    entradaValida = true;
+                    time = LocalTime.parse(input, formatter);
+                    validInput = true;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Formato inválido. Use HH:mm:ss. Exemplo: 12:30:45");
+                    System.out.println("Invalid format. Use HH:mm:ss. Example: 12:30:45");
                 } catch (Exception e) {
-                    System.out.println("Erro inesperado: " + e.getMessage());
+                    System.out.println("Unexpected error: " + e.getMessage());
                 }
             } else {
-                System.out.println("Formato inválido. Use HH:mm:ss. Exemplo: 12:30:45");
+                System.out.println("Invalid format. Use HH:mm:ss. Example: 12:30:45");
             }
         }
 
-        return horario;
+        return time; // Retorna o horário obtido
     }
 
-    public LocalTime obterHorarioEntrada() { // Alterado para LocalTime
-        return obterHorario("Digite o horário de entrada: ");
+    public LocalTime getEntryTime() {
+        return getTime("Enter entry time: ");
     }
 
-    public LocalTime obterHorarioSaida(LocalTime horarioEntrada) { // Alterado para LocalTime
-        return obterHorario("Digite o horário de saída:");
+    public LocalTime getExitTime(LocalTime entryTime) {
+        return getTime("Enter exit time: ");
     }
+
 }

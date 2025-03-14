@@ -4,13 +4,13 @@ import java.time.Duration;
 
 public class OutputFormatter {
 
-    public void exibirDuracao(Duration duration){
-        long horas = duration.toHours();
-        long minutos = duration.toMinutesPart();
-        System.out.println("Duração: " + horas + " horas e " + minutos + " minutos");
+    public void displayDuration(Duration duration) {
+        long hours = duration.toHours();
+        long minutes = duration.toMinutesPart();
+        System.out.println("Duration: " + hours + " hours and " + minutes + " minutes");
     }
 
-    public void exibirMensagem(String mensagem) {
-        System.out.println(mensagem);
+    public void displayMessage(String message) {
+        System.out.println(message);
     }
 }

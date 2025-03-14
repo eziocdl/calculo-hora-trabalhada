@@ -16,6 +16,6 @@ public class Main {
         Invoker invoker = new Invoker();
 
         Controller controller = new Controller(menu, inputHandler, outputFormatter, timerCalculator, invoker);
-        controller.iniciar();
+        controller.start();
     }
 }

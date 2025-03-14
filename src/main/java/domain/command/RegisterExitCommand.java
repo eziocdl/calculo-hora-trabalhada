@@ -12,21 +12,20 @@ public class RegisterExitCommand implements Command {
     private InputHandler inputHandler;
     private OutputFormatter outputFormatter;
     private TimerCalculator timerCalculator;
-    private LocalTime horarioEntrada;
-    private LocalTime getHorarioSaida;
+    private LocalTime entryTime;
+    private LocalTime exitTime;
 
-    public RegisterExitCommand(InputHandler inputHandler, OutputFormatter outputFormatter, TimerCalculator timerCalculator, LocalTime horarioEntrada) {
+    public RegisterExitCommand(InputHandler inputHandler, OutputFormatter outputFormatter, TimerCalculator timerCalculator, LocalTime entryTime) {
         this.inputHandler = inputHandler;
         this.outputFormatter = outputFormatter;
         this.timerCalculator = timerCalculator;
-        this.horarioEntrada = horarioEntrada;
+        this.entryTime = entryTime;
     }
-
 
     @Override
     public void execute() {
-        getHorarioSaida = inputHandler.obterHorarioSaida(horarioEntrada);
-        Duration duracao = timerCalculator.calcularDuracao(horarioEntrada, getHorarioSaida);
-        outputFormatter.exibirDuracao(duracao);
+        exitTime = inputHandler.getExitTime(entryTime);
+        Duration duration = timerCalculator.calculateDuration(entryTime, exitTime);
+        outputFormatter.displayDuration(duration);
     }
 }
