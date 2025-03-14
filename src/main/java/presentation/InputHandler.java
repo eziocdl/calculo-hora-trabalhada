@@ -1,65 +1,52 @@
 package presentation;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class InputHandler {
     private Scanner scanner;
     private DateTimeFormatter formatter;
+    private Pattern pattern = Pattern.compile("^\\d{2}:\\d{2}:\\d{2}$");
 
-
-    // Constructor Scanner para receber a entrada do usuário
     public InputHandler() {
         this.scanner = new Scanner(System.in);
         this.formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     }
 
-    public LocalDateTime obterHorarioEntrada() {
+    public LocalTime obterHorario(String mensagem) { // Alterado para LocalTime
+        LocalTime horario = null; // Alterado para LocalTime
+        boolean entradaValida = false;
 
-        // chamando o método auxiliar
-        return obterHorario("Digite o horário de entrada (HH:mm:ss): ");
+        while (!entradaValida) {
+            System.out.print(mensagem + " (HH:mm:ss) - Ex: 12:30:45: ");
+            String entrada = scanner.nextLine().replaceAll("\\s+", "");
 
 
-    }
-
-    public LocalDateTime obterHorarioSaida(LocalDateTime horarioEntrada) {
-        while (true) {
-            LocalDateTime horarioSaida = obterHorario("\"Digite o horário de entrada (HH:mm:ss): ");
-
-            if (horarioSaida.isAfter(horarioEntrada)) {
-                return horarioSaida;
+            if (pattern.matcher(entrada).matches()) {
+                try {
+                    horario = LocalTime.parse(entrada, formatter); // Alterado para LocalTime.parse
+                    entradaValida = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Formato inválido. Use HH:mm:ss. Exemplo: 12:30:45");
+                } catch (Exception e) {
+                    System.out.println("Erro inesperado: " + e.getMessage());
+                }
             } else {
-                System.out.println("Horário de saída deve ser posterior ao horário de entrada:");
+                System.out.println("Formato inválido. Use HH:mm:ss. Exemplo: 12:30:45");
             }
         }
+
+        return horario;
     }
 
-    // metodo auxiliar usado para evitar código duplicado Dry(Don't repeat yourself)
-
-    private LocalDateTime obterHorario(String mensagem) {
-        while (true) {
-            System.out.println(mensagem);
-            String entrada = scanner.nextLine();
-
-            // validação da entrada
-
-            if (entrada == null || entrada.trim().isEmpty()) {
-                System.out.println("Entrada não pode serr vazia");
-                continue;
-            }
-
-            try {
-
-                // validando formato
-                return LocalDateTime.parse(entrada, formatter);
-
-            } catch (DateTimeParseException e) {
-                System.out.println("Formato inválido. Use HH: mm:ss.");
-            }
-        }
+    public LocalTime obterHorarioEntrada() { // Alterado para LocalTime
+        return obterHorario("Digite o horário de entrada: ");
     }
 
-
+    public LocalTime obterHorarioSaida(LocalTime horarioEntrada) { // Alterado para LocalTime
+        return obterHorario("Digite o horário de saída:");
+    }
 }

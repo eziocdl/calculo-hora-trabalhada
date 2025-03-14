@@ -1,61 +1,62 @@
 package controller;
 
+import domain.Invoker;
 import domain.TimerCalculator;
+import domain.command.Command;
+import domain.command.RegisterEntryCommand;
+import domain.command.RegisterExitCommand;
 import presentation.InputHandler;
 import presentation.Menu;
 import presentation.OutputFormatter;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 
-public class Controller{
+import java.time.LocalTime;
+
+public class Controller {
 
     private Menu menu;
     private InputHandler inputHandler;
     private OutputFormatter outputFormatter;
     private TimerCalculator timerCalculator;
-    private LocalDateTime horarioEntrada;
-    private LocalDateTime horarioSaida;
+    private Invoker invoker;
+    private LocalTime horarioEntrada;
 
-    public Controller(Menu menu, InputHandler inputHandler, OutputFormatter outputFormatter, TimerCalculator timerCalculator) {
+
+    public Controller(Menu menu, InputHandler inputHandler, OutputFormatter outputFormatter, TimerCalculator timerCalculator, Invoker invoker) {
         this.menu = menu;
         this.inputHandler = inputHandler;
         this.outputFormatter = outputFormatter;
         this.timerCalculator = timerCalculator;
+        this.invoker = invoker;
+    }
+
+    public Controller() {
 
     }
 
-    // método
-
     public void iniciar() {
-
-        // menu repetir até o usuário clicar em sair
         while (true) {
             int opcao = menu.exibirMenu();
 
             switch (opcao) {
                 case 1:
-                   horarioEntrada = inputHandler.obterHorarioEntrada();
-                   outputFormatter.exibirMensagem("Horário de entrada registrado.");
-                   break;
+                    Command registerEntryCommand = new RegisterEntryCommand(inputHandler, outputFormatter);
+                    invoker.executarComando(registerEntryCommand);
+                    horarioEntrada = ((RegisterEntryCommand) registerEntryCommand).getHorarioEntrada();
+                    break;
                 case 2:
                     if (horarioEntrada == null) {
                         outputFormatter.exibirMensagem("Registre o horário de entrada: ");
                         break;
                     }
-                    horarioSaida = inputHandler.obterHorarioSaida(horarioEntrada);
-                    Duration duracao = timerCalculator.calcularDuracao(horarioEntrada, horarioSaida);
-                    outputFormatter.exibirDuracao(duracao);
+                    Command registerExitCommand = new RegisterExitCommand(inputHandler, outputFormatter, timerCalculator, horarioEntrada);
+                    invoker.executarComando(registerExitCommand);
                     break;
                 case 3:
                     outputFormatter.exibirMensagem("Encerrando o aplicativo.");
-
-                    // encerra o aplicativo
                     return;
-
-                    // opcao inválida
                 default:
-                outputFormatter.exibirMensagem("Opção Inválida");
+                    outputFormatter.exibirMensagem("Opção Inválida");
             }
         }
     }
