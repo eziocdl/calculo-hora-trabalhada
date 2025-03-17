@@ -30,12 +30,12 @@ public class InputHandler {
                     time = LocalTime.parse(input, formatter);
                     validInput = true;
                 } catch (DateTimeParseException e) {
-                    System.out.println("Invalid format. Use HH:mm:ss. Example: 12:30:45");
+                    System.out.println("Formato inválido. Use HH:mm:ss. Exemplo: 12:30:45");
                 } catch (Exception e) {
-                    System.out.println("Unexpected error: " + e.getMessage());
+                    System.out.println("Erro inesperado: " + e.getMessage());
                 }
             } else {
-                System.out.println("Invalid format. Use HH:mm:ss. Example: 12:30:45");
+                System.out.println("Formato inválido. Use HH:mm:ss. Exemplo: 12:30:45");
             }
         }
 
@@ -43,11 +43,11 @@ public class InputHandler {
     }
 
     public LocalTime getEntryTime() {
-        return getTime("Enter entry time: ");
+        return getTime("Entre com o horário de entrada: ");
     }
 
     public LocalTime getExitTime(LocalTime entryTime) {
-        return getTime("Enter exit time: ");
+        return getTime("Entre com o horário de saída: ");
     }
 
 }

@@ -7,7 +7,7 @@ public class OutputFormatter {
     public void displayDuration(Duration duration) {
         long hours = duration.toHours();
         long minutes = duration.toMinutesPart();
-        System.out.println("Duration: " + hours + " hours and " + minutes + " minutes");
+        System.out.println("Duração: " + hours + " horas e " + minutes + " minutos");
     }
 
     public void displayMessage(String message) {

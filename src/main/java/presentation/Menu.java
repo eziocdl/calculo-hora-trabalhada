@@ -12,9 +12,9 @@ public class Menu {
 
     // Exibe o menu e obtém a opção do usuário
     public int displayMenu() {
-        System.out.println("1. Register Entry");
-        System.out.println("2. Register Exit");
-        System.out.println("3. Exit");
+        System.out.println("1. Registro de entrada: ");
+        System.out.println("2. Registro de saída: ");
+        System.out.println("3. Sair");
 
         // Obtém uma opção válida do usuário
 
@@ -26,7 +26,7 @@ public class Menu {
 
     private int getValidOption() {
         while (true) {
-            System.out.print("Choose an option: ");
+            System.out.print(" Escolha a opção: ");
 
             if (scanner.hasNextInt()) {
                 int option = scanner.nextInt();
@@ -35,10 +35,10 @@ public class Menu {
                 if (option >= 1 && option <= 3) {
                     return option;
                 } else {
-                    System.out.println("Invalid option. Enter a number between 1 and 3.");
+                    System.out.println("Opção inválida. Escolhe o número entre 1 e 3.");
                 }
             } else {
-                System.out.println("Invalid option. Enter an integer.");
+                System.out.println("Opçãi inválida. Digite um número inteiro.");
                 scanner.nextLine(); // Limpa o buffer do scanner
             }
         }

@@ -44,17 +44,17 @@ public class Controller {
                     break;
                 case 2: // Opção para registrar o horário de saída
                     if (entryTime == null) { // Verifica se o horário de entrada foi registrado
-                        outputFormatter.displayMessage("Register the entry time first."); // Exibe uma mensagem informando que o horário de entrada deve ser registrado primeiro
+                        outputFormatter.displayMessage("Escreva primeiro o horário de entrada."); // Exibe uma mensagem informando que o horário de entrada deve ser registrado primeiro
                         break;
                     }
                     Command registerExitCommand = new RegisterExitCommand(inputHandler, outputFormatter, timerCalculator, entryTime); // Cria um comando para registrar a saída
                     invoker.executeCommand(registerExitCommand); // Executa o comando
                     break;
                 case 3: // Opção para sair do aplicativo
-                    outputFormatter.displayMessage("Exiting the application."); // Exibe uma mensagem de encerramento
+                    outputFormatter.displayMessage("Saindo do aplicativo."); // Exibe uma mensagem de encerramento
                     return; // Encerra o método e, consequentemente, o aplicativo
                 default: // Opção inválida
-                    outputFormatter.displayMessage("Invalid option."); // Exibe uma mensagem de opção inválida
+                    outputFormatter.displayMessage("Opção inválida."); // Exibe uma mensagem de opção inválida
             }
         }
     }

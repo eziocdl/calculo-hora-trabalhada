@@ -22,7 +22,7 @@ public class RegisterEntryCommand implements Command {
     @Override
     public void execute() {
         entryTime = inputHandler.getEntryTime();
-        outputFormatter.displayMessage("Entry time registered.");
+        outputFormatter.displayMessage("Rgistrado.");
     }
 }
 
